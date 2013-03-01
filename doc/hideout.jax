@@ -1,0 +1,108 @@
+*hideout.txt*	Unicode エスケープシーケンスを視覚的に表示するプラグインです。
+
+
+
+
+==============================================================================
+概要						*hideout-introduction*
+
+|hideout.vim| は |tex-conceal| を利用して視覚的に Unicode エスケープシーケン
+スを元の文字で表示するプラグインです。
+
+イメージ: >
+	\u0068\u0065\u006C\u006C\u006F\u002C\u0020\u0077\u006F\u0072\u006C\u0064
+	↓
+	hello, world
+<
+
+|tex-conceal| を利用している為、実際のテキストを書き換えることなく表示のみを変
+更しています。
+
+デフォルトでは以下の文字に対応しています。
+
+- 英数字、記号
+- カタカナ
+- ひらがな
+- 常用漢字
+
+マルチバイト文字はエンコーディングが utf-8 の場合にのみ対応しています。
+
+
+==============================================================================
+使い方						*hideout-usage*
+
+Unicode エスケープシーケンスが書かれているバッファで |:HideoutOn| を呼び出し
+ます。
+この時にバッファ内の 'conceallevel' に 2 が設定されるので注意して下さい。
+
+
+==============================================================================
+インターフェース				*hideout-interface*
+
+------------------------------------------------------------------------------
+コマンド					*hideout-commands*
+
+:HideoutOn[!]					*:HideoutOn*
+	バッファ内の Unicode エスケープシーケンスを元の文字で表示します。
+	この時にバッファ内の 'conceallevel' に 2 が設定されるので注意して
+	下さい。
+	[!] が付いている場合は 'conceallevel' は設定されません。
+
+
+:HideoutClear					*:HideoutOn*
+	表示をクリアします。
+
+
+:HideoutRefreshCache				*:HideoutRefreshCache*
+	キャッシュをクリアします。
+	|:HideoutOn| 時に設定をキャッシングしているので、設定を変更した場合は
+	このコマンドを呼び出して下さい。
+
+
+==============================================================================
+設定						*hideout-setting*
+
+------------------------------------------------------------------------------
+変数						*hideout-variables*
+
+g:hideout_syntax_name 				*g:hideout_syntax_name*
+	|:syntax| で使用される {group-name} です。
+
+	Default: >
+		let g:hideout_syntax_name = "hideout_unicode_escape"
+	<
+
+g:hideout_unicode_escape_format			*g:hideout_unicode_escape_format*
+	Unicode エスケープシーケンスのフォーマットです。
+	|printf()| の {fmt} が設定出来ます。
+
+	Default: >
+		let g:hideout_unicode_escape_format = '\u%04X'
+	<
+
+g:hideout_unicode_user_text			*g:hideout_unicode_user_text*
+	ユーザ側で任意の文字を表示したい場合、この変数に設定して下さい。
+	文字列を設定することが出来ます。
+
+	Default: >
+		let g:hideout_unicode_user_text = ""
+	<
+
+	例: >
+		" 虎視眈々という文字も表示したい
+		" '視'は常用漢字なのでそれ以外を設定
+		let g:hideout_unicode_user_text = "虎眈々"
+	<
+
+g:hideout_kanzi_disable				*g:hideout_kanzi_disable*
+	1 が設定されている場合、漢字の表示を行いません。
+	漢字だけで約2000文字が登録されるので重い場合はこれに 1 を設定して下さ
+	い。
+	
+	Default: >
+		let g:hideout_kanzi_disable = 0
+	<
+
+
+==============================================================================
+vim:tw=78:fo=tcq2mM:ts=8:ft=help:norl
