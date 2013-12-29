@@ -49,7 +49,7 @@ Unicode エスケープシーケンスが書かれているバッファで |:Hid
 	[!] が付いている場合は 'conceallevel' は設定されません。
 
 
-:HideoutClear					*:HideoutOn*
+:HideoutClear					*:HideoutClear*
 	表示をクリアします。
 
 
